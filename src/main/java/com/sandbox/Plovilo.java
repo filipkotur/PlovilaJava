@@ -52,7 +52,6 @@ public class Plovilo {
 
         String ProvjeriDatum(Date unesenidatum,int dani) {
             Double rezultat = 0.0;
-            boolean grupa = false;
             long brojdana = 0;
             SimpleDateFormat PromjenaStringa=new SimpleDateFormat("dd.MM.yyyy");
             String najmanjidatum ="01.01.2021";
@@ -79,7 +78,7 @@ public class Plovilo {
 
 
                     for (PloviloCijena model : Plovilacijena) {
-                        if ((unesenidatum.compareTo(model.Vrijemeod) >= 0 && unesenidatum.compareTo(model.VrijemeDo) <= 0) || (grupa == true)) {
+                        if ((unesenidatum.compareTo(model.Vrijemeod) >= 0 && unesenidatum.compareTo(model.VrijemeDo) <= 0)) {
                             unesenidatum=Promjenidatum(unesenidatum,dani);
 
                             if (unesenidatum.compareTo(model.VrijemeDo) > 0) {
