@@ -53,27 +53,26 @@ public class Plovilo {
         String ProvjeriDatum(Date unesenidatum,int dani) {
             Double rezultat = 0.0;
             boolean grupa = false;
-            int prvagrupa = 90;
             long brojdana = 0;
             SimpleDateFormat PromjenaStringa=new SimpleDateFormat("dd.MM.yyyy");
             String najmanjidatum ="01.01.2021";
             String NajveciDatum ="31.12.2021";
             String rezultatProvjere = null;
-            Date Upisnovegrupe = new Date();
+            Date Najvecidate = new Date();
             Date Najnizidatum = new Date();
 
             try{
-                Upisnovegrupe=PromjenaStringa.parse(NajveciDatum);
+                Najvecidate=PromjenaStringa.parse(NajveciDatum);
                 Najnizidatum=PromjenaStringa.parse(najmanjidatum);
             }catch (ParseException e){e.printStackTrace();}
-            if ((unesenidatum.compareTo(Najnizidatum) < 0 || unesenidatum.compareTo(Upisnovegrupe) > 0)) {
+            if ((unesenidatum.compareTo(Najnizidatum) < 0 || unesenidatum.compareTo(Najvecidate) > 0)) {
                 rezultatProvjere = "Uneseni datum je izvan dosega";
 
             } else {
                 unesenidatum=Promjenidatum(unesenidatum,dani);
 
 
-                if (unesenidatum.compareTo(Upisnovegrupe) >= 0) {
+                if (unesenidatum.compareTo(Najvecidate) >= 0) {
                     rezultatProvjere = "prevelik broj dana najma";
                 } else {
                     unesenidatum=Promjenidatum(unesenidatum,-dani);
@@ -99,7 +98,7 @@ public class Plovilo {
                             }
                         }
                     }
-                    return "odgovor: "  + String.valueOf(rezultat);
+                    return "Iznos cijene najma je "  + String.valueOf(rezultat);
 
 
                 }
