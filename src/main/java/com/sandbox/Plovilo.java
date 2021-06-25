@@ -76,7 +76,7 @@ public class Plovilo {
     }
 
 
-        String ProvjeriDatum(Date unesenidatum,int dani) {
+        String UpitKorisnika(Date unesenidatum,int dani) {
             Double rezultat = 0.0;
             long brojdana = 0;
             String rezultatProvjere = null;

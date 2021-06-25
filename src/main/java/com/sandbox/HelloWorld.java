@@ -46,7 +46,7 @@ public class HelloWorld {
                 int treciBrojdana=Integer.parseInt(args[7]);
                 for(Plovilo model : objects) {
                     if (model.ID == prviId) {
-                            System.out.println("Odgovor:" + model.ProvjeriDatum(drugiDatum,treciBrojdana));
+                            System.out.println("Odgovor:" + model.UpitKorisnika(drugiDatum,treciBrojdana));
 
                     }
 
