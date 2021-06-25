@@ -83,13 +83,13 @@ public class Plovilo {
 
                             if (unesenidatum.compareTo(model.VrijemeDo) > 0) {
                                 unesenidatum=Promjenidatum(unesenidatum,-dani);
-                                brojdana = (model.VrijemeDo.getTime() - unesenidatum.getTime())/86400000;
+                                brojdana = 1+((model.VrijemeDo.getTime() - unesenidatum.getTime())/86400000);
                                 rezultat = rezultat + model.Cijena * brojdana / 7;
 
-                                unesenidatum=Promjenidatum(unesenidatum,(int) brojdana+1);
+                                unesenidatum=Promjenidatum(unesenidatum,(int) brojdana-1);
 
 
-                                dani = (int) (dani - brojdana);
+                                dani = (int) (dani - brojdana+1);
 
 
                             } else {
