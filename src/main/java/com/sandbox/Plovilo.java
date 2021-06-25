@@ -1,22 +1,14 @@
 package com.sandbox;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.time.LocalDate;
 
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Plovilo {
         int ID ;
         String nazivPlovila;
         int godiste;
 
-    Map<Date, Double> PeriodizaVozila = new HashMap<>();
     ArrayList<PloviloCijena> Plovilacijena = new ArrayList<PloviloCijena>();
-    List<Date> Periodi = new ArrayList<Date>();
 
     public Plovilo()
         {
@@ -50,21 +42,50 @@ public class Plovilo {
         return datumKojiTrebaPromjenit=cal.getTime();
     }
 
+    boolean ProvjeriDosegDatum(Date unesenidatum,Date Najnizidatum,Date Najvecidate){
+        if (unesenidatum.compareTo(Najnizidatum) < 0 || unesenidatum.compareTo(Najvecidate) > 0)
+            return true;
+        else
+            return false;
+
+    }
+    Double IzracunajCijenu(Date unesenidatum,int dani,long brojdana){
+
+        Double cijena = 0.0;
+        for (PloviloCijena model : Plovilacijena) {
+            if ((unesenidatum.compareTo(model.Vrijemeod) >= 0 && unesenidatum.compareTo(model.VrijemeDo) <= 0)) {
+                unesenidatum=Promjenidatum(unesenidatum,dani);
+
+                if (unesenidatum.compareTo(model.VrijemeDo) > 0) {
+                    unesenidatum=Promjenidatum(unesenidatum,-dani);
+                    brojdana = 1+((model.VrijemeDo.getTime() - unesenidatum.getTime())/86400000);
+                    cijena = cijena + model.Cijena * brojdana / 7;
+
+                    unesenidatum=Promjenidatum(unesenidatum,(int) brojdana+1);
+
+
+                    dani = (int) (dani - brojdana);
+
+
+                } else {
+                    cijena = cijena + model.Cijena * dani / 7;
+                }
+            }
+        }
+        return cijena;
+    }
+
+
         String ProvjeriDatum(Date unesenidatum,int dani) {
             Double rezultat = 0.0;
             long brojdana = 0;
-            SimpleDateFormat PromjenaStringa=new SimpleDateFormat("dd.MM.yyyy");
-            String najmanjidatum ="01.01.2021";
-            String NajveciDatum ="31.12.2021";
             String rezultatProvjere = null;
-            Date Najvecidate = new Date();
             Date Najnizidatum = new Date();
+            Najnizidatum  = Plovilacijena.get(0).Vrijemeod;
+            Date Najvecidate = new Date();
+            Najvecidate = Plovilacijena.get(Plovilacijena.size()-1).VrijemeDo;
 
-            try{
-                Najvecidate=PromjenaStringa.parse(NajveciDatum);
-                Najnizidatum=PromjenaStringa.parse(najmanjidatum);
-            }catch (ParseException e){e.printStackTrace();}
-            if ((unesenidatum.compareTo(Najnizidatum) < 0 || unesenidatum.compareTo(Najvecidate) > 0)) {
+            if (ProvjeriDosegDatum( unesenidatum, Najnizidatum, Najvecidate)) {
                 rezultatProvjere = "Uneseni datum je izvan dosega";
 
             } else {
@@ -75,31 +96,8 @@ public class Plovilo {
                     rezultatProvjere = "prevelik broj dana najma";
                 } else {
                     unesenidatum=Promjenidatum(unesenidatum,-dani);
-
-
-                    for (PloviloCijena model : Plovilacijena) {
-                        if ((unesenidatum.compareTo(model.Vrijemeod) >= 0 && unesenidatum.compareTo(model.VrijemeDo) <= 0)) {
-                            unesenidatum=Promjenidatum(unesenidatum,dani);
-
-                            if (unesenidatum.compareTo(model.VrijemeDo) > 0) {
-                                unesenidatum=Promjenidatum(unesenidatum,-dani);
-                                brojdana = 1+((model.VrijemeDo.getTime() - unesenidatum.getTime())/86400000);
-                                rezultat = rezultat + model.Cijena * brojdana / 7;
-
-                                unesenidatum=Promjenidatum(unesenidatum,(int) brojdana-1);
-
-
-                                dani = (int) (dani - brojdana+1);
-
-
-                            } else {
-                                rezultat = rezultat + model.Cijena * dani / 7;
-                            }
-                        }
-                    }
+                    rezultat = IzracunajCijenu(unesenidatum, dani, brojdana);
                     return "Iznos cijene najma je "  + String.valueOf(rezultat);
-
-
                 }
             }
             return rezultatProvjere ;
