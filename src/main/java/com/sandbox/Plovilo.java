@@ -101,7 +101,6 @@ public class Plovilo {
 
 
                 }
-                return rezultatProvjere ;
             }
             return rezultatProvjere ;
 
