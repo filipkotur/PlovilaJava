@@ -26,19 +26,20 @@ public class HelloWorld {
 
                 List<Ship> objects = new ArrayList<Ship>();
                 System.out.println(Arrays.toString(date2));
-                int brojac =1;
-                while (brojac<6 && (line = reader.nextLine()) != null) {
-                    String[]  shipData = line.split(",");
-                    Ship obj = new Ship(Integer.parseInt(shipData[0]),shipData[1],Integer.parseInt(shipData[2]));
+                while ((line= reader.nextLine())!=null)
+                {
+                    if(line.length() > 0) {
+                        String[] shipData = line.split(",");
+                        Ship obj = new Ship(Integer.parseInt(shipData[0]), shipData[1], Integer.parseInt(shipData[2]));
 
-                    int counter =0;
-                    for (int addition=0; addition<date2.length ;addition+=2) {
-                        obj.DodajPlovilacijena( date2[addition],date2[addition+1],Double.parseDouble(shipData[3+counter]));
-                        counter++;
+                        int counter = 0;
+                        for (int addition = 0; addition < date2.length; addition += 2) {
+                            obj.DodajPlovilacijena(date2[addition], date2[addition + 1], Double.parseDouble(shipData[3 + counter]));
+                            counter++;
+                        }
+                        objects.add(obj);
+
                     }
-                    objects.add(obj);
-
-                    brojac++;
             }
 
                 int prviId = Integer.parseInt(args[5]);
