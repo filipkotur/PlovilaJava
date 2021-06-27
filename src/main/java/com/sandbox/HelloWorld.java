@@ -42,12 +42,12 @@ public class HelloWorld {
                     }
             }
 
-                int prviId = Integer.parseInt(args[5]);
-                try{Date drugiDatum = changingString.parse(args[6]);
-                int treciBrojdana=Integer.parseInt(args[7]);
+                int firstID = Integer.parseInt(args[5]);
+                try{Date dateOfUser = changingString.parse(args[6]);
+                int numberOfDaysOfUser=Integer.parseInt(args[7]);
                 for(Ship model : objects) {
-                    if (model.ID == prviId) {
-                            System.out.println("Odgovor:" + model.userRequest(drugiDatum,treciBrojdana));
+                    if (model.ID == firstID) {
+                            System.out.println("Odgovor:" + model.userRequest(dateOfUser,numberOfDaysOfUser));
                     }
 
                 }
