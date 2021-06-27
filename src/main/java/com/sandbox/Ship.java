@@ -10,15 +10,10 @@ public class Ship {
 
     ArrayList<ShipPrice> shipPrice = new ArrayList<ShipPrice>();
 
-    public Ship()
-        {
-
-        }
 
         public Ship(int ID1 ,
                     String nameShip,
                     int yearShip
-
                        )
         {
             ID = ID1;
@@ -28,7 +23,7 @@ public class Ship {
 
         }
 
-    void DodajPlovilacijena(Date timeFrom,Date timeTo ,Double money){
+    void addNewShipData(Date timeFrom, Date timeTo , Double money){
         ShipPrice newShip = new ShipPrice(timeFrom, timeTo, money);
         shipPrice.add(newShip);
 

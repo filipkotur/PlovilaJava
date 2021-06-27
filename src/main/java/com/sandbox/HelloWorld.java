@@ -34,7 +34,7 @@ public class HelloWorld {
 
                         int counter = 0;
                         for (int addition = 0; addition < date2.length; addition += 2) {
-                            obj.DodajPlovilacijena(date2[addition], date2[addition + 1], Double.parseDouble(shipData[3 + counter]));
+                            obj.addNewShipData(date2[addition], date2[addition + 1], Double.parseDouble(shipData[3 + counter]));
                             counter++;
                         }
                         objects.add(obj);
@@ -48,6 +48,7 @@ public class HelloWorld {
                 for(Ship model : objects) {
                     if (model.ID == firstID) {
                             System.out.println("Odgovor:" + model.userRequest(dateOfUser,numberOfDaysOfUser));
+                    break;
                     }
 
                 }
