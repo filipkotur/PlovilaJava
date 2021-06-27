@@ -11,30 +11,30 @@ public class HelloWorld {
 
 
     public static void main(String... args) {
-        CSVreadfile reader = new CSVreadfile();
+        CsvReadFile reader = new CsvReadFile();
 
-        String linija =reader.SljedeciRed();
-        linija = linija.substring(3,linija.length());
-                String[] DatumiuStringu = linija.split(",|-");
-                SimpleDateFormat PromjenaStringa=new SimpleDateFormat("dd.MM.yyyy");
-                Date[] date2=new Date[DatumiuStringu.length];
+        String line =reader.nextLine();
+        line = line.substring(3,line.length());
+                String[] dateAsString = line.split(",|-");
+                SimpleDateFormat changingString=new SimpleDateFormat("dd.MM.yyyy");
+                Date[] date2=new Date[dateAsString.length];
                 int i=0;
-                try{for (String datum : DatumiuStringu) {
-                    date2[i] = PromjenaStringa.parse(datum);
+                try{for (String date : dateAsString) {
+                    date2[i] = changingString.parse(date);
                     i++;
                 }}catch (ParseException e){e.printStackTrace();}
 
-                List<Plovilo> objects = new ArrayList<Plovilo>();
+                List<Ship> objects = new ArrayList<Ship>();
                 System.out.println(Arrays.toString(date2));
                 int brojac =1;
-                while (brojac<6 && (linija = reader.SljedeciRed()) != null) {
-                    String[]  PodacioVozilu = linija.split(",");
-                    Plovilo obj = new Plovilo(Integer.parseInt(PodacioVozilu[0]),PodacioVozilu[1],Integer.parseInt(PodacioVozilu[2]));
+                while (brojac<6 && (line = reader.nextLine()) != null) {
+                    String[]  PodacioVozilu = line.split(",");
+                    Ship obj = new Ship(Integer.parseInt(PodacioVozilu[0]),PodacioVozilu[1],Integer.parseInt(PodacioVozilu[2]));
 
-                    int brojnik =0;
-                    for (int zbroj=0; zbroj<date2.length ;zbroj+=2) {
-                        obj.DodajPlovilacijena( date2[zbroj],date2[zbroj+1],Double.parseDouble(PodacioVozilu[3+brojnik]));
-                        brojnik++;
+                    int counter =0;
+                    for (int addition=0; addition<date2.length ;addition+=2) {
+                        obj.DodajPlovilacijena( date2[addition],date2[addition+1],Double.parseDouble(PodacioVozilu[3+counter]));
+                        counter++;
                     }
                     objects.add(obj);
 
@@ -42,12 +42,11 @@ public class HelloWorld {
             }
 
                 int prviId = Integer.parseInt(args[5]);
-                try{Date drugiDatum = PromjenaStringa.parse(args[6]);
+                try{Date drugiDatum = changingString.parse(args[6]);
                 int treciBrojdana=Integer.parseInt(args[7]);
-                for(Plovilo model : objects) {
+                for(Ship model : objects) {
                     if (model.ID == prviId) {
-                            System.out.println("Odgovor:" + model.UpitKorisnika(drugiDatum,treciBrojdana));
-
+                            System.out.println("Odgovor:" + model.userRequest(drugiDatum,treciBrojdana));
                     }
 
                 }

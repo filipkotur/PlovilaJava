@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class CSVreadfile {
+public class CsvReadFile {
     BufferedReader reader;
-    String linija;
-    public CSVreadfile(){
+    String line;
+    public CsvReadFile(){
 
         try {
             File file = new File("cjenik.csv");
@@ -20,14 +20,14 @@ public class CSVreadfile {
 
     }
 
-    String SljedeciRed(){
+    String nextLine(){
         try {
-            linija = reader.readLine();
+            line = reader.readLine();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return linija;
+        return line;
 
     }
 
