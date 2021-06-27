@@ -80,19 +80,15 @@ public class Ship {
             Double result = 0.0;
             long changedDays = 0;
             String resultOfRequst = null;
-            Date lowestDate = new Date();
-            lowestDate  = shipPrice.get(0).timeFrom;
-            Date highestDate = new Date();
-            highestDate = shipPrice.get(shipPrice.size()-1).timeTo;
 
-            if (checkDateRange( givenDate, lowestDate, highestDate)) {
+            if (checkDateRange( givenDate, shipPrice.get(0).timeFrom, shipPrice.get(shipPrice.size()-1).timeTo)) {
                 resultOfRequst = "Uneseni datum je izvan dosega";
 
             } else {
                 givenDate= changeDate(givenDate,days);
 
 
-                if (givenDate.compareTo(highestDate) >= 0) {
+                if (givenDate.compareTo(shipPrice.get(shipPrice.size()-1).timeTo) >= 0) {
                     resultOfRequst = "prevelik broj dana najma";
                 } else {
                     givenDate= changeDate(givenDate,-days);
